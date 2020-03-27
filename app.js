@@ -1,7 +1,9 @@
+const cool = require("cool-ascii-faces");
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
 const https = require("https");
+
 
 
 const app = express();
@@ -9,6 +11,8 @@ const app = express();
 app.use(express.static("public"));
 
 app.use(bodyParser.urlencoded({extended:true}));
+
+app.get('/cool', (req, res) => res.send(cool()));
 
 app.get("/", function(req, res){
   res.sendFile(__dirname+"/signup.html")
@@ -34,7 +38,7 @@ app.post("/", function(req, res) {
   const url = "https://us19.api.mailchimp.com/3.0/lists/7023cce9c3";
   const options = {
     method: "POST",
-    auth: "xiaozhang:4c103c0386597810ad7103a6dc4691c5-us1"
+    auth: "xiaozhang:4c103c0386597810ad7103a6dc4691c5-us19"
   }
   const request = https.request(url, options, function(response){
 
@@ -55,7 +59,7 @@ app.post("/failure", function(req,res){
   res.redirect("/");
 })
 
-app.listen(process.env.PORT || 3000, function(){
+app.listen(process.env.PORT || 5000, function(){
   console.log("Server running on port 3000.")
 })
 
